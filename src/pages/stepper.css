@@ -1,0 +1,29 @@
+/* Add this to your CSS file or within a <style> tag in your component */
+.step-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step {
+  position: relative;
+  /* Adjust the width and height as needed */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  /* background-color: #f0f0f0; Light grey background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -50%; /* Adjust based on the desired length of the connection line */
+  width: 50px; /* Adjust the width of the connection line */
+  height: 2px; /* Thickness of the connection line */
+  background-color: #f0f0f0; /* Color of the connection line */
+  transform: translateY(-50%);
+}
