@@ -1,28 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EventFilter from "../components/eventFilter";
 import EventContainer from "../components/eventContainer";
 import Footer from "../components/footer";
 import Navbar from "../components/navBars/dashboardNav";
 import { BASE_URL } from "./helper";
+
 const Dashboard = () => {
   const navigate = useNavigate();
+
   const getUser = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/login/sucess`, {
+      // Introduce a delay of 3 seconds before making the request
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      const response = await axios.get(`${BASE_URL}/login/success`, {
         withCredentials: true,
       });
-      // console.log(response);
+      
       localStorage.setItem("googleId", response.data.user.googleId);
     } catch (error) {
-      navigate("/dashboard");
+      navigate("/login");
     }
   };
+
   useEffect(() => {
     getUser();
   }, []);
+
   return (
     <div className="h-full overflow-x-hidden">
       <Navbar/>
