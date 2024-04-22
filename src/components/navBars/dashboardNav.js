@@ -23,7 +23,7 @@ const DashboardNav = () => {
   console.log("response", userData.user);
   const getUser = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/login/sucess`, {
+      const response = await axios.get(`${BASE_URL}/login/success`, {
         withCredentials: true,
       });
 
