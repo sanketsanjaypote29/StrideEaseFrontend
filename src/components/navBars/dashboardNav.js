@@ -20,13 +20,29 @@ import { BASE_URL } from "../../pages/helper";
 const DashboardNav = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
-  console.log("response", userData.user);
+  console.log("user data response", userData.user);
+  //fectch user data function 
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/login/success`, {
+        method: 'GET',
+        credentials: 'include', // This ensures that cookies are sent along with the request
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch user data');
+      }
+  
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      return null;
+    }
+  };
   const getUser = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/login/success`, {
-        withCredentials: true,
-      });
-      setUserData(response.data);
+      const userData = await fetchUserData();
+      setUserData(userData);
     } catch (error) {
       console.log("error", error);
     }
