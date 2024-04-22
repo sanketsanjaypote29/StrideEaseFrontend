@@ -60,7 +60,7 @@ const EditEvent = () => {
       console.log(response);
       localStorage.setItem("googleId", response.data.user.googleId);
     } catch (error) {
-      navigate("/login");
+      // navigate("/login");
     }
   };
   useEffect(() => {
