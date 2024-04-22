@@ -21,28 +21,14 @@ const DashboardNav = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   console.log("user data response", userData.user);
-  //fectch user data function 
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/login/success`, {
-        method: 'GET',
-        credentials: 'include', // This ensures that cookies are sent along with the request
-      });
+  //fectch user data
   
-      if (!response.ok) {
-        throw new Error('Failed to fetch user data');
-      }
-  
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      return null;
-    }
-  };
   const getUser = async () => {
     try {
-      const userData = await fetchUserData();
-      setUserData(userData);
+      const response = await axios.get(`${BASE_URL}/login/success`, {
+        withCredentials: true,
+      });
+      setUserData(response.data);
     } catch (error) {
       console.log("error", error);
     }
