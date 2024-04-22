@@ -20,14 +20,13 @@ import { BASE_URL } from "../../pages/helper";
 const DashboardNav = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
-  console.log("user data response", userData.user);
-  //fectch user data
-  
+  console.log("response", userData.user);
   const getUser = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/login/success`, {
         withCredentials: true,
       });
+
       setUserData(response.data);
     } catch (error) {
       console.log("error", error);
@@ -152,18 +151,15 @@ const DashboardNav = () => {
               className="hover:text-blue-400 px-3 py-2 text-black">
               Profile
             </Link>
-            {userData.user && (
-              <>
-                <img
-                  src={userData.user.image}
-                  alt="user"
-                  className="w-10 h-10 rounded-full p-1"
-                />
-                <span className="px-3 py-2 text-black">
-                  {userData.user.displayName}
-                </span>
-              </>
-            )}
+
+            <img
+              src={userData.user?.image}
+              alt="user"
+              className="w-10 h-10 rounded-full p-1"
+            />
+            <span className="px-3 py-2 text-black">
+              {userData.user?.displayName}
+            </span>
           </div>
         </div>
       </nav>
