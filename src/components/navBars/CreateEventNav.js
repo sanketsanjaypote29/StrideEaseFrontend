@@ -17,13 +17,14 @@ import { useNavigate } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { MdDashboard } from "react-icons/md";
 import Modal from "../Modal";
+import {BASE_URL} from "../../pages/helper"
 const CreateEventNav = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   console.log("response", userData.user);
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:6005/login/sucess", {
+      const response = await axios.get(`${BASE_URL}/login/sucess`, {
         withCredentials: true,
       });
 
@@ -59,7 +60,7 @@ const CreateEventNav = () => {
   }, []);
   const location = useLocation();
   const logout = () => {
-    window.location.href = "http://localhost:6005/logout";
+    window.location.href = `${BASE_URL}/logout`;
   };
   const handleCancelClick = () => {
     setShowModal(true);

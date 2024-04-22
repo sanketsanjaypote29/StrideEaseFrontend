@@ -16,6 +16,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
+import { BASE_URL } from "../../pages/helper";
 
 const RegisteredEventNav = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const RegisteredEventNav = () => {
   console.log("response", userData.user);
   const getUser = async () => {
     try {
-      const response = await axios.get("http://localhost:6005/login/sucess", {
+      const response = await axios.get(`${BASE_URL}/login/sucess`, {
         withCredentials: true,
       });
 
@@ -58,7 +59,7 @@ const RegisteredEventNav = () => {
   }, []);
   const location = useLocation();
   const logout = () => {
-    window.location.href = "http://localhost:6005/logout";
+    window.location.href = `${BASE_URL}/logout`;
   };
   const handleCancelClick = () => {
     setShowModal(true);
