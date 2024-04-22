@@ -11,17 +11,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const getUser = async () => {
-    try {
-      // Introduce a delay of 3 seconds before making the request
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
+    try { 
       const response = await axios.get(`${BASE_URL}/login/success`, {
         withCredentials: true,
       });
       
       localStorage.setItem("googleId", response.data.user.googleId);
     } catch (error) {
-      navigate("/login");
+      // navigate("/login");
     }
   };
 
