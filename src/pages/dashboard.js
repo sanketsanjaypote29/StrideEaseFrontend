@@ -17,7 +17,7 @@ const Dashboard = () => {
       // console.log(response);
       localStorage.setItem("googleId", response.data.user.googleId);
     } catch (error) {
-      navigate("/login");
+      navigate("/dashboard");
     }
   };
   useEffect(() => {
@@ -25,7 +25,7 @@ const Dashboard = () => {
   }, []);
   return (
     <div className="h-full overflow-x-hidden">
-      {/* <Navbar/> */}
+      <Navbar/>
       <EventFilter />
       <EventContainer />
       <Footer />
