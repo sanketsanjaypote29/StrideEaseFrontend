@@ -2,11 +2,13 @@ import React from "react";
 import "./home.css";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
-
+import Chatbot from "../components/Chatbot";
+import Service from "../components/Service";
+import Testimonal from "../components/Testimonal";
 const Home = () => {
   return (
     <>
-      <Navbar />  
+      <Navbar />
       <div className="overflow-x-scroll no-scrollbar">
         <div className="container mx-auto px-4 md:flex justify-start ">
           <div className="w-full md:w-5/12 max-h-96 font-sans text-sky-950 md:mr-4 md:ml-40 mt-20">
@@ -25,9 +27,18 @@ const Home = () => {
             />
           </div>
         </div>
-        <div className="w-full">
-          <Footer />
+        <div className="m-8">
+          <Service />
         </div>
+        <div className="m-8">
+          <Testimonal />
+        </div>
+        <div>
+          <Chatbot />
+        </div>
+      </div>
+      <div className="w-full">
+        <Footer />
       </div>
     </>
   );

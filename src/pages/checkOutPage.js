@@ -1,22 +1,23 @@
-import React from "react";
+// @js-ignore
+import React, { useEffect, useState } from "react";
 import Footer from "../components/footer";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import CheckoutNav, { checkoutNav } from "../components/navBars/checkoutNav";
+import { useParams, useNavigate } from "react-router-dom";
+import CheckoutNav from "../components/navBars/checkoutNav";
 import { FaPlus } from "react-icons/fa6";
+import axios from "axios";
+import { load } from "@cashfreepayments/cashfree-js";
 import { BASE_URL } from "./helper";
 
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
+  const [orderId, setOrderId] = useState("");
 
   useEffect(() => {
     fetchEventDetails();
   }, [eventId]);
-  console.log("event id:", eventId);
+
   const fetchEventDetails = async () => {
     try {
       const response = await fetch(`${BASE_URL}/api/events/${eventId}`);
@@ -29,6 +30,68 @@ const CheckOutPage = () => {
       console.error("Error fetching event details:", error);
     }
   };
+  //cashfree integration
+
+  let cashfree;
+
+  let insitialzeSDK = async function () {
+    cashfree = await load({
+      mode: "sandbox",
+    });
+  };
+
+  insitialzeSDK();
+
+  const getSessionId = async () => {
+    try {
+      let res = await axios.get(`${BASE_URL}/payment`);
+
+      if (res.data && res.data.payment_session_id) {
+        console.log(res.data);
+        setOrderId(res.data.order_id);
+        return res.data.payment_session_id;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const verifyPayment = async () => {
+    try {
+      let res = await axios.post(`${BASE_URL}/verify`, {
+        orderId: orderId,
+      });
+
+      if (res && res.data) {
+        alert("payment verified");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      let sessionId = await getSessionId();
+      let checkoutOptions = {
+        paymentSessionId: sessionId,
+        redirectTarget: "_modal",
+      };
+
+      cashfree.checkout(checkoutOptions).then((res) => {
+        console.log("payment initialized");
+        
+
+        verifyPayment(orderId);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (!event) {
+    return <div className="items-center ml-10">Loading...</div>;
+  }
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { day: "2-digit", month: "long", year: "numeric" };
@@ -59,6 +122,7 @@ const CheckOutPage = () => {
   if (!event) {
     return <div className="items-center ml-10">Loading...</div>;
   }
+
   return (
     <>
       <CheckoutNav />
@@ -129,7 +193,9 @@ const CheckOutPage = () => {
             </p>
           </div>
           <div>
-            <button className="border bg-amber-50 hover:bg-blue-400 hover:text-white hover:shadow-blue-500 hover:border-blue-500 shadow-lg p-2 mt-5 rounded-lg w-96">
+            <button
+              className="border bg-amber-50 hover:bg-blue-400 hover:text-white hover:shadow-blue-500 hover:border-blue-500 shadow-lg p-2 mt-5 rounded-lg w-96"
+              onClick={handleClick}>
               Proceed to Payment
             </button>
           </div>

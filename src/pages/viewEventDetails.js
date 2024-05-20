@@ -16,7 +16,6 @@ import MapPicker from "react-google-map-picker";
 import Geocode from "react-geocode";
 import { useEffect } from "react";
 import ViewEventNav from "../components/navBars/viewEventNav";
-import { BASE_URL } from "./helper";
 
 const ViewEventDetails = () => {
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ const ViewEventDetails = () => {
   const fetchEventDetails = async () => {
     try {
       const response = await fetch(
-        `${BASE_URL}/api/events/${eventId}`
+        `http://localhost:6005/api/events/${eventId}`
       );
       const data = await response.json();
       console.log(data);

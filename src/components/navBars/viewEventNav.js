@@ -16,7 +16,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { MdDashboard } from "react-icons/md";
-import {BASE_URL} from "../../pages/helper"
+import { BASE_URL } from "../../pages/helper";
 
 const ViewEventNav = () => {
   const navigate = useNavigate();
@@ -39,6 +39,10 @@ const ViewEventNav = () => {
   const menuItems = [
     { icon: <MdDashboard size={25} className="mr-4" />, text: "Dashboard" },
     { icon: <IoCreate size={25} className="mr-4" />, text: "Create New Event" },
+    {
+      icon: <BsCalendar2EventFill size={25} className="mr-4" />,
+      text: "Your Created Event",
+    },
     {
       icon: <BsCalendar2EventFill size={25} className="mr-4" />,
       text: "Your Registered Event",
@@ -113,8 +117,10 @@ const ViewEventNav = () => {
                           logout();
                         } else if (text === "Create New Event") {
                           navigate("/createevent");
+                        } else if (text === "Your Created Event") {
+                          navigate("/createdEvent");
                         } else if (text === "Your Registered Event") {
-                          navigate("/registeredEvent");
+                          navigate("/");
                         } else if (text === "Dashboard") {
                           navigate("/dashboard");
                         }
@@ -128,10 +134,14 @@ const ViewEventNav = () => {
           </div>
           <div className="flex items-center">
             {/* Logo */}
-            <img src="/logo.png" alt="Logo" className="h-8 mr-2" />
-            <span className="text-lg font-bold text-black mr-4">
-              Stride Ease
-            </span>
+            <div className="flex mr-96 items-center">
+              <Link to="/dashboard" className="flex items-center">
+                <img src="/logo.png" alt="Logo" className="h-8 mr-2" />
+                <span className="text-lg font-bold text-black mr-4">
+                  Stride Ease
+                </span>
+              </Link>
+            </div>
 
             <div className="relative">
               <input

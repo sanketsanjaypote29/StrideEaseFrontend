@@ -13,6 +13,7 @@ import "./stepper.css";
 import { useNavigate, useParams } from "react-router-dom";
 import CreateEventNav from "../components/navBars/CreateEventNav";
 import { BASE_URL } from "./helper";
+import Chatbot from "../components/Chatbot";
 
 const defaultPosition = {
   lat: 18.5204,
@@ -60,7 +61,7 @@ const EditEvent = () => {
       console.log(response);
       localStorage.setItem("googleId", response.data.user.googleId);
     } catch (error) {
-      // navigate("/login");
+      navigate("/login");
     }
   };
   useEffect(() => {
@@ -70,9 +71,7 @@ const EditEvent = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(
-          `${BASE_URL}/api/events/${eventId}`
-        );
+        const response = await axios.get(`${BASE_URL}/api/events/${eventId}`);
         const data = response.data.event;
         setEvent(data);
         setLoading(false); // Set loading to false after data is fetched
@@ -174,7 +173,7 @@ const EditEvent = () => {
       );
       console.log(response.data); // Log the response from the server
       toast.success("Event updated successfully");
-      navigate("/dashboard"); 
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error updating event:", error);
       toast.error("Failed to update event"); // Notify the user of failed update
@@ -671,6 +670,7 @@ const EditEvent = () => {
           )}
         </div>
       </div>
+      <Chatbot />
       <Footer />
     </>
   );

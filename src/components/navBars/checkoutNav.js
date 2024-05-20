@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
-
 import { AiOutlineMenu, AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { IoCreate } from "react-icons/io5";
 import { BsCalendar2EventFill } from "react-icons/bs";
@@ -13,7 +12,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { MdDashboard } from "react-icons/md";
-import {BASE_URL} from "../../pages/helper"
+import { BASE_URL } from "../../pages/helper";
 
 const CheckoutNav = () => {
   const navigate = useNavigate();
@@ -35,8 +34,12 @@ const CheckoutNav = () => {
 
   const menuItems = [
     { icon: <MdDashboard size={25} className="mr-4" />, text: "Dashboard" },
-    
+
     { icon: <IoCreate size={25} className="mr-4" />, text: "Create New Event" },
+    {
+      icon: <BsCalendar2EventFill size={25} className="mr-4" />,
+      text: "Your Created Event",
+    },
     {
       icon: <BsCalendar2EventFill size={25} className="mr-4" />,
       text: "Your Registered Event",
@@ -76,13 +79,11 @@ const CheckoutNav = () => {
               <AiOutlineMenu size={30} />
             </div>
           </div>
-
           {nav ? (
             <div className="bg-black/80 fixed w-full h-screen z-10 top-0 left-0"></div>
           ) : (
             ""
           )}
-
           <div
             className={
               nav
@@ -94,11 +95,13 @@ const CheckoutNav = () => {
               size={30}
               className="absolute right-4 top-4 cursor-pointer"
             />
-            <div className="flex ml-5 mt-5">
-              <img src="/logo.png" alt="Logo" className="h-8 mr-2" />
-              <span className="text-lg font-bold text-black mr-4">
-                Stride Ease
-              </span>
+            <div className="flex mr-96">
+              <Link to="/dashboard">
+                <img src="/logo.png" alt="Logo" className="h-8 mr-2" />
+                <span className="text-lg font-bold text-black mr-4">
+                  Stride Ease
+                </span>
+              </Link>
             </div>
             <nav>
               <ul className="flex flex-col p-4 text-gray-800">
@@ -111,9 +114,11 @@ const CheckoutNav = () => {
                           logout();
                         } else if (text === "Create New Event") {
                           navigate("/createevent");
+                        } else if (text === "Your Created Event") {
+                          navigate("/createdEvent");
                         } else if (text === "Your Registered Event") {
-                          navigate("/registeredEvent");
-                        }else if(text==="Dashboard"){
+                          navigate("/");
+                        } else if (text === "Dashboard") {
                           navigate("/dashboard");
                         }
                       }}>
@@ -126,10 +131,14 @@ const CheckoutNav = () => {
           </div>
           <div className="flex items-center">
             {/* Logo */}
-            <img src="/logo.png" alt="Logo" className="h-8 mr-2" />
-            <span className="text-lg font-bold text-black mr-4">
-              Stride Ease
-            </span>
+            <div className="flex ml-5 mt-5 items-center">
+              <Link to="/dashboard" className="flex items-center">
+                <img src="/logo.png" alt="Logo" className="h-8 mr-2" />
+                <span className="text-lg font-bold text-black mr-4">
+                  Stride Ease
+                </span>
+              </Link>
+            </div>
 
             <div className="relative">
               <input
@@ -142,7 +151,6 @@ const CheckoutNav = () => {
               </div>
             </div>
           </div>
-
           <div className="flex items-center">
             {/* Profile */}
             <Link

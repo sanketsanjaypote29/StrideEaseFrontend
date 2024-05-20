@@ -10,7 +10,7 @@ import Dashboard from "./pages/dashboard";
 import CreateEvent from "./pages/createEvent";
 import ViewEventDetails from "./pages/viewEventDetails";
 import { ToastContainer } from "react-toastify";
-import RegisteredEvent from "./pages/registeredEvents";
+import CreatedEvent from "./pages/createdEvents";
 import CheckOutPage from "./pages/checkOutPage";
 import "react-toastify/dist/ReactToastify.css";
 import EditEvent from "./pages/editEvent";
@@ -31,10 +31,9 @@ function App() {
           path="/viewEventDetails/:eventId"
           element={<ViewEventDetails />}
         />
-        <Route path="/registeredEvent" element={<RegisteredEvent />} />
+        <Route path="/createdEvent" element={<CreatedEvent />} />
         <Route path="/checkOut/:eventId" element={<CheckOutPage />} />
         <Route path="/editevent/:eventId" element={<EditEvent />} />
-
       </Routes>
     </>
   );
